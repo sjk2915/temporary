@@ -1,0 +1,18 @@
+.grass-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 16px); /* 7일 × 몇 주 */
+    gap: 4px;
+  }
+
+  .grass-cell {
+    width: 16px;
+    height: 16px;
+    background-color: #ebedf0; /* 기본색 */
+    border-radius: 3px;
+  }
+
+  .level-1 { background-color: #c6e48b; }
+  .level-0 { background-color: black; }
+
+
+  .label { margin-bottom: 10px; font-weight: bold; }

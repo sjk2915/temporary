@@ -1,0 +1,100 @@
+html, body {
+    height: 100%;
+    font-family: 'Helvetica', sans-serif;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.join-container {
+    background: white;
+    padding: 50px 100px;
+    border-radius: 10px;
+    text-align: left;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    width: 100%;
+}
+
+.join-input{
+  border: none;
+  font-size: 20px;
+  border-bottom: solid 1px black;
+  width: 100%;
+  padding: 30px 0px;
+  outline: none;
+}
+  
+.logo {
+    width: 60px;
+    display: block;
+    margin: 0 auto 20px;
+}
+  
+h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.id-check-box{
+  display:flex;
+  position: relative;
+}
+
+#new-id-check-btn{
+  position: absolute;
+  top: 20%;
+  right: 0;
+  background-color: #00c896;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 12px;
+  white-space: nowrap;
+  border-radius: 4px;
+  height:50px;
+}
+
+.check-btn {
+    background-color: #00c896;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    font-size: 12px;
+    white-space: nowrap;
+    border-radius: 4px;
+}
+  
+.join-btn-group {
+    display: flex;
+    justify-content: space-between;
+    margin:50px 0px
+}
+  
+
+#join-btn {
+    background-color: #00c896;
+    color: white;
+    border: none;
+    padding: 20px 20px;
+    width: 48%;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+  
+#cancel-btn {
+    background-color: #f1f1f1;
+    color: #333;
+    border: none;
+    padding: 20px 20px;
+    width: 48%;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+  
