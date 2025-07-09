@@ -1,33 +1,31 @@
-//유저가 갖고 있는 도전권 갯수를 받아오는 함수
-//미완성*********
-function informTicket(){
-    $.ajax({
-        type:'GET',
-        url:"/api/howManyTicket",
-        data:{},
-        success:function(response){
-            let money_list = response["user-ticket"];
-            for(i=0;i<money_list.length;i++){
-                showRecords(money_list[i]["guess_money"])
-            }
-        }
-    })
-
+function fireConfetti() {
+    confetti({
+        particleCount: 200,
+        spread: 100,
+        origin: { y: 0.4 }
+    });
 }
-//유저가 도전권을 사용하여 도전한 경우 작동하는 함수
-function guessMoney(id){
-    let money = $("#user-input-money").val()
 
+
+//유저가 도전권을 사용하여 도전한 경우 작동하는 함수
+function guessMoney(){
+    popupSuccess();
+    fireConfetti();
+    let money = $("#user-input-money").val()
     $.ajax({
         type:"POST",
-        url:"/api/challenge",
-        data:{appPrice:money ,userId:id},
+        url:"/apply",
+        data:{appPrice:money},
+
+        error: function (xhr) {
+           // xhr.responseJSON
+        },
+
         success:function(response){
             if(response["result"]=="success"){
                 alert("도전 성공")
                 popupSuccess();
                 updateTicketCount();
-                //도전권 차감(reload) 및 결과 발표 배너 보여주기
             }
             else{
                 alert("도전 실패")
@@ -40,11 +38,79 @@ function guessMoney(id){
 function updateTicketCount() {
     $.ajax({
         type: 'GET',
-        url: '/api/ticket',
-        success: function (res) {
-            document.getElementById("ticket-count").innerText = `보유 도전권: ${res.ticket}개`;
+        url: '/getTicketCount',
+        success: function (response) {
+            document.getElementById("ticket-count").innerText = `보유 도전권: ${response.appTicket}개`;
         }
     });
+}
+
+//완성전
+
+
+function addCouponAlert(){
+    const ticketBtn = document.getElementById('everyCouponAlert')
+    ticketBtn.classList.remove('opacity-0', 'pointer-events-none'); // 보이게
+    ticketBtn.classList.add('opacity-100'); 
+
+    setTimeout(() => {
+        ticketBtn.classList.remove('opacity-100'); 
+        ticketBtn.classList.add('opacity-0', 'pointer-events-none'); 
+    }, 2000);
+}
+
+function addEveryDayTicket(){
+    
+    $.ajax({
+        type:"POST",
+        url:"/api/freeEveryTicket",
+        data:{userId:id},
+
+        beforeSend: function (xhr) {
+            const token = localStorage.getItem('jwt_token');
+            if (token) {
+                xhr.setRequestHeader('Authorization', token);
+            }
+        },
+        error: function (xhr) {
+           // xhr.responseJSON
+        },
+        success:function(response){
+            if(response["result"]=="success"){
+                updateTicketCount();
+            }
+            else{
+                addCouponAlert();
+            }
+        }
+    })
+}
+
+function addCommitTicket(){
+    
+    $.ajax({
+        type:"POST",
+        url:"/api/freeCommitTicket",
+        data:{userId:id},
+
+        beforeSend: function (xhr) {
+            const token = localStorage.getItem('jwt_token');
+            if (token) {
+                xhr.setRequestHeader('Authorization', token);
+            }
+        },
+        error: function (xhr) {
+           // xhr.responseJSON
+        },
+        success:function(response){
+            if(response["result"]=="success"){
+                updateTicketCount();
+            }
+            else{
+                addCouponAlert();
+            }
+        }
+    })
 }
 
 function popupSuccess(){
@@ -73,6 +139,7 @@ function toggle_record(){
     else {
     recordDiv.classList.add('hidden');
 }}
+
 
 
 

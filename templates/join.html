@@ -3,39 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <title>회원가입</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="min-h-screen flex items-center justify-center font-sans text-[#333] bg-white">
-  <div class="bg-white px-[100px] py-[50px] rounded-[10px] text-left shadow max-w-[500px] w-full">
-    
+  <div class="bg-white px-[100px] py-[50px] rounded-[10px] text-left shadow max-w-[600px] w-full">
     <img
       src="https://cdn.sayun.studio/boottent/files/camps/top/header_38f78858-ebd2-465f-b0ef-ec49175c603a.png"
       alt="logo"
       class="w-[600px] block mx-auto mb-[20px]"
     />
     
-    <h2 class="text-center mb-[30px] text-xl font-semibold">회원가입</h2>
+    <h2 class="text-center mb-[30px] text-3xl font-semibold">회원가입</h2>
 
     <div class="space-y-[24px]">
       <input id="new-name" placeholder="이름"
-        class="w-full text-[20px] border-b border-black py-[30px] outline-none" />
-
-      <div class="relative">
-        <input id="new-id" placeholder="아이디"
-          class="w-full text-[20px] border-b border-black py-[30px] outline-none" />
-        <button onclick="checkIdDuplicate()" id="new-id-check-btn" class="absolute top-[20%] right-0 bg-[#00c896] text-white px-3 py-2 text-xs whitespace-nowrap rounded h-[50px]">
-          아이디 중복 체크
-        </button>
+      class="input-check w-full text-[20px] border-b border-black py-[30px] outline-none" />
+    <div class="relative">
+      <input id="new-id" placeholder="아이디"
+        class="input-check w-full text-[20px] border-b border-black py-[30px] outline-none" />
+      <button onclick="checkIdDuplicate()" id="new-id-check-btn"
+        class="absolute top-[20%] right-0 bg-[#00c896] text-white px-5 py-2 text-sm whitespace-nowrap rounded h-[50px]">
+        아이디 중복 체크
+      </button>
       </div>
-
-      <input id="new-password" placeholder="비밀번호"
-        class="w-full text-[20px] border-b border-black py-[30px] outline-none" />
-
-      <input id="new-password-check" placeholder="비밀번호 확인"
-        class="w-full text-[20px] border-b border-black py-[30px] outline-none" />
-
-      <input id="new-github" placeholder="깃허브 아이디"
-        class="w-full text-[20px] border-b border-black py-[30px] outline-none" />
+    <input id="new-password" placeholder="비밀번호"
+      class="input-check w-full text-[20px] border-b border-black py-[30px] outline-none" />
+    
+    <input id="new-password-check" placeholder="비밀번호 확인"
+      class="input-check w-full text-[20px] border-b border-black py-[30px] outline-none" />
+    
+    <input id="new-github" placeholder="깃허브 아이디"
+      class="input-check w-full text-[20px] border-b border-black py-[30px] outline-none" />
     </div>
 
     <div class="flex justify-between mt-[50px]">
@@ -45,11 +44,12 @@
         가입
       </button>
       <button id="cancel-btn"
-        onclick="location.href='login.html'"
+        onclick="location.href='{{ url_for('home') }}'",
         class="bg-[#f1f1f1] text-[#333] px-5 py-5 w-[48%] text-sm cursor-pointer rounded">
         취소
       </button>
     </div>
   </div>
+  <script src="../static/js/join.js"></script>
 </body>
 </html>

@@ -1,33 +1,35 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Login-page</title>
-    <link rel="stylesheet" href="../static/css/login.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-
 </head>
-<body>
-    <div class="w-[600px] flex items-center justify-center min-h-screen bg-white">
-        <div class="bg-white p-10 rounded-lg shadow-md w-full max-w-md">
-        <img src="https://cdn.sayun.studio/boottent/files/camps/top/header_38f78858-ebd2-465f-b0ef-ec49175c603a.png" alt="로고" class="w-66 mx-auto mb-6" />
+<body class="min-h-screen flex items-center justify-center bg-white font-sans">
 
-        <div class="mb-6">
-        <input type="text" id="user-id" placeholder="아이디 입력" class="w-full border-b border-black py-3 text-gray-800 outline-none" />
-        </div>
+    <div class="w-[600px] bg-white p-[50px] rounded-[10px] text-center shadow-lg">
+        <img src="https://cdn.sayun.studio/boottent/files/camps/top/header_38f78858-ebd2-465f-b0ef-ec49175c603a.png"
+            alt="로고" class="w-[500px] mx-auto mb-[20px]" />
 
-        <div class="mb-4">
-            <input type="password" id="user-password" placeholder="비밀번호 입력" class="w-full border-b border-black py-3 text-gray-800 outline-none" />
-        </div>
+        <form class="login-form">
+        <input type="text" id="user-id" placeholder="아이디 입력"
+                class="w-full border-b border-[#333] py-[20px] my-[20px] text-[20px] outline-none" />
 
-        <div class="flex justify-end mb-6 text-xs text-gray-500">
-        <a href="join.html" class="hover:underline">회원가입</a>
-        </div>
+        <input type="password" id="user-password" placeholder="비밀번호 입력"
+                class="w-full border-b border-[#333] py-[20px] my-[20px] mb-12 text-[20px] outline-none" />
 
-        <button onclick="handleLogin()" class="bg-[#00c896] text-white font-bold py-3 w-full rounded"> 로그인
+        <a href="/signup"
+            class="block text-right text-[22px] text-black mb-12">
+            <span class="hover:underline">회원가입</span>
+        </a>
+
+        <button type="button" onclick="loginSuccess()"
+                class="w-full py-[15px] bg-[#00c896] text-white text-[20px] font-bold rounded">
+            로그인
         </button>
-        </div>
+        </form>
     </div>
-
-</body>
+    <script src="../static/js/join.js"></script>
+    </body>
 </html>

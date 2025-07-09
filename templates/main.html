@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <title>main</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     .level-0 { background-color: #ebedf0; }
     .level-1 { background-color: #c6e48b; }
+
   </style>
 </head>
-<body class="min-h-screen bg-white flex flex-col items-center mt-40 text-gray-800 font-sans">
-
-
-<div class="flex flex-col items-center mb-5">
+<body class="min-h-screen bg-white flex flex-col items-center mt-40 text-gray-800 font-sans">    
+    <div class="flex flex-col items-center mb-5">
         <img src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791163031727.jpg" class="w-40 mb-4" />
-        <input id="user-input-money" placeholder="{{ minScore_ssr }}~{{ maxScore_ssr }} 입력 가능" class="w-full px-2 py-3 border-b border-gray-400 focus:outline-none text-center text-gray-600 mb-4">
+        <input id="user-input-money" placeholder="{{ minPrice }}~{{ maxPrice }} 입력 가능" class="w-full px-2 py-3 border-b border-gray-400 focus:outline-none text-center text-gray-600 mb-4">
 
         <div class="flex space-x-2 mb-2">
             <button onclick="guessMoney()" class="bg-emerald-500 text-white px-4 py-2 rounded">
@@ -26,7 +26,7 @@
 
 
     <div id="ticket-count">
-        🎫 보유 도전권 : {{ ticket }}개
+        🎫 보유 도전권 : {{ appTicket }}개
     </div>
     
 
@@ -42,18 +42,24 @@
 </div>
 <div class="flex gap-40 mt-40 items-center">
     <div class="flex flex-col gap-10 text-center">
-        <div class="label">{{ appList[0].appDate[:4] }}년 {{ appList[0].appDate[8:10]|int }}월</div>
+        {% if appList and appList[0].appDate %}
+            <div class="label">
+            {{ appList[0].appDate[:4] }}년 {{ appList[0].appDate[5:7]|int }}월
+            </div>
+        {% else %}
+            <div class="label">최근 응모 기록 없음</div>
+        {% endif %}
         <div class="grid gap-3" style="grid-template-columns: repeat(7, 16px);" id="grassGrid">
-            {% for day in appList %}
+            {% for day in attendanceList %}
                 <div class="w-6 h-6 rounded-sm level-{{ day.level }}"
-                    data-date="{{ day.appDate[:10] }}">
+                    data-date="{{ day.dateTime[:10] }}">
                 </div>
             {% endfor %}
         </div>
     <p class="mt-10 text-sm text-gray-700">연속 응모 횟수 {{consecutiveDay}}회</p>
     </div>
     <div class="flex flex-col gap-3 mb-5 text-center">
-        <div class="text-9xl mt-7 mb-7" onclick="location.href='reward.html'">🏆</div>
+        <div class="text-9xl mt-7 mb-7" onclick="location.href='{{url_for('getRewards')}}'">🏆</div>
         <p class="text-sm text-gray-700">지난 도전 당첨 결과 확인</p>
     </div>
 </div>
@@ -73,25 +79,28 @@
 <div id="popup-ticket" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
     <div class="flex flex-col justify-center items-center bg-white p-6 rounded-xl shadow-lg w-[500px] h-[700px] text-center">
         <h2 class="text-[28px] font-semibold mb-5"><p class="text-4xl mb-4">🔥</p>도전권 얻기</h2>
-        <div class="flex flex-col gap-10 mt-12 w-[350px]" >
+        <div class="flex flex-col gap-3 mt-12 w-[350px]" >
             <div class="flex items-center justify-between">
             <h2 class="text-[20px] translate-x-5">매일 도전하기
             </h2>
             <button onclick="addEveryDayTicket()" class="text-white bg-emerald-500 border border-gray-300 text-gray-600 px-4 py-2 rounded">도전권 얻기</button>
             </div>
+            <p id=everyCouponAlert class="w-full text-right opacity-0 pointer-events-none text-red-500 text-sm">더이상 받을 수 없습니다.</p>
             <div class="flex flex items-center justify-between">
             <h2 class="text-[20px]">커밋하고 도전하기
             </h2>
             <button onclick="addCommitTicket()" class="text-white bg-emerald-500 border border-gray-300 text-gray-600 px-4 py-2 rounded">도전권 얻기</button>
         </div>
+        <p id=commitCouponAlert class="w-full text-right opacity-0 pointer-events-none text-red-500 text-sm">더이상 받을 수 없습니다.</p>
     </div>
         
     <div class="flex justify-center mt-24">
         <button id="popup-cancel" onclick="popupTicket()" class="text-white bg-emerald-500 border border-gray-300 text-gray-600 px-4 py-2 rounded">돌아가기</button>
     </div>
     </div>
-</div>
 
+</div>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <script src="/static/js/main.js"></script>
 </body>
 </html>
